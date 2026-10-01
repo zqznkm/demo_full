@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "PT_SansBold";
+  src: url("../fonts/PT_Sans/PT_Sans/PTSans-Bold.ttf");
+  font-style: large;
+}
+
+@font-face {
+  font-family: "PT_Sans";
+  src: url("../fonts/PT_Sans/PT_Sans/PTSans-Regular.ttf");
+  font-style: medium;
+}
+
+@font-face {
+  font-family: "PT_SansItal";
+  src: url("../fonts/PT_Sans/PT_Sans/PTSans-Italic.ttf");
+  font-style: italic;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-size: 16px !important;
+  font-family: PT_Sans;
+}
+
+h1 {
+  font-family: PT_SansBold !important;
+  font-size: 36px !important;
+}
+
+label,
+input,
+button {
+  font-size: 16px !important;
+  font-family: PT_Sans !important;
+}
+
+button {
+  background-color: #007bff !important;
+  margin: 10px !important;
+}
+
+header{
+  background-color: #0d47a1;
+  color: #f8f9fa;
+  text-align: left;
+  padding: 10px;
+}
+
+#fontsHeader{
+  font-size: 24px !important;
+}
