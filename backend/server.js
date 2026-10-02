@@ -29,10 +29,10 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    const {login, password, fullName, phone, email}= req.body
+    const { login, password, fullName, phone, email } = req.body
     const sql = `INSERT INTO users (login, password, fullName, phone, email) VALUES (?,?,?,?,?)`
 
-    db.query(sql, [login, password, fullName, phone, email], (err, result)=>{
+    db.query(sql, [login, password, fullName, phone, email], (err, result) => {
         if (err) {
             console.error(err);
             return
@@ -45,17 +45,17 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/loginUser', (req, res) => {
-    const {login, password}= req.body
+    const { login, password } = req.body
     const sql = `SELECT * FROM users WHERE login = ? AND password = ? `
 
-    db.query(sql, [login, password], (err, result)=>{
+    db.query(sql, [login, password], (err, result) => {
         if (err) {
             console.error(err);
             return
         }
 
-        if(result.length === 0){
-             return res.json({
+        if (result.length === 0) {
+            return res.json({
                 message: "Неверный логин или пароль"
             })
         }
@@ -69,15 +69,15 @@ app.post('/loginUser', (req, res) => {
 
 
 app.post('/applications', (req, res) => {
-    const {id, platform, date, payment}= req.body
+    const { id, platform, date, payment } = req.body
     const sql = `INSERT INTO applications (idusers, platform, date, payment) VALUES (?,?,?,?)`
 
-    db.query(sql, [id, platform, date, payment], (err, result)=>{
+    db.query(sql, [id, platform, date, payment], (err, result) => {
         if (err) {
             console.error(err);
             return
         }
-       return res.json({
+        return res.json({
             message: "Добавлена"
         })
 
@@ -101,6 +101,25 @@ app.get('/applications', (req, res) => {
         })
 
     })
+})
+
+app.put('/applications/:id', (req, res) => {
+    const { id } = req.params
+    const { status } = req.body
+    const sql = ` UPDATE applications SET status = ? WHERE idapplications = ?`
+
+    db.query(sql, [status, id], (err, result)=>{
+        if (err) {
+            console.error(err);
+            return
+        }
+
+        console.log(result);
+        res.json({
+            message:"изменен"
+        })
+    })
+
 })
 
 
