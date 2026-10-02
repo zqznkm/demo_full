@@ -55,17 +55,54 @@ app.post('/loginUser', (req, res) => {
         }
 
         if(result.length === 0){
-            res.json({
+             return res.json({
                 message: "Неверный логин или пароль"
             })
-            return
         }
-        res.json({
-            message: "Найден"
+        return res.json({
+            message: "Найден",
+            id: result[0].idusers
         })
 
     })
 })
+
+
+app.post('/applications', (req, res) => {
+    const {id, platform, date, payment}= req.body
+    const sql = `INSERT INTO applications (idusers, platform, date, payment) VALUES (?,?,?,?)`
+
+    db.query(sql, [id, platform, date, payment], (err, result)=>{
+        if (err) {
+            console.error(err);
+            return
+        }
+       return res.json({
+            message: "Добавлена"
+        })
+
+    })
+})
+
+app.get('/applications', (req, res) => {
+    const sql = `SELECT * FROM applications`
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error(err);
+            return
+        }
+
+        console.log(result);
+        res.json({
+            message: "Найден",
+            application: result
+
+        })
+
+    })
+})
+
 
 
 

@@ -40,13 +40,16 @@ function Login() {
 
             const result = await response.json()
 
-            if(result.value === "Неверный логин или пароль"){
+            if(result.message === "Неверный логин или пароль"){
                 setError("Неверный логин или пароль")
+                console.log(result.message);
                 return
             }
-            console.log("Зашел");
-            alert("Вошли")
-
+            // console.log("Зашел");
+            // alert("Вошли")
+            navigate("/Applications")
+            console.log(result);
+            JSON.stringify(localStorage.setItem("idusers", result.id))
         } catch (error) {
             console.error(error);
         }
@@ -69,7 +72,7 @@ function Login() {
                     <Form.Control type="password" placeholder="Пароль" minLength={8} required onChange={(e) => setPassword(e.target.value)} data-testid="login-password"/>
                 </Form.Group>
 
-                <Button variant="primary" type="submit" data-testid="login-submit"> Создать пользователя </Button>
+                <Button variant="primary" type="submit" data-testid="login-submit">Войти </Button>
                 <p> Ещё не зарегестрированы? {}
                     <a href='/Register'>Регистрация</a>
                 </p>
