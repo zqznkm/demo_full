@@ -8,6 +8,8 @@ function Applications() {
 
     const [applications, setApplications] = useState([])
     const [rewiest, setRewiest] = useState({})
+
+
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
@@ -37,7 +39,7 @@ function Applications() {
                     <Table striped bordered hover data-testid="reqt">
                         <thead>
                             <tr>
-                                <th>Конференция</th>
+                                <th>Платформа</th>
                                 <th>Дата</th>
                                 <th>Оптала</th>
                                 <th>Статус</th>
@@ -73,7 +75,7 @@ function Applications() {
 
                                             }}
                                         >
-                                        </textarea>}</td>
+                                        </textarea>} <Button>Удалить завку</Button></td>
                                     </tr>
                                 ) : null
                             })

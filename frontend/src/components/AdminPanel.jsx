@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function AdminPAnel() {
 
     const [applications, setApplications] = useState([])
+    const [seach, setSeach] = useState("")
 
     const [error, setError] = useState("")
     const navigate = useNavigate()
@@ -36,7 +37,12 @@ function AdminPAnel() {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>Конференция</th>
+                                <th>Помещение <input type="text"
+                                    placeholder="поиск...." 
+                                    value={seach}
+                                    onChange={(e)=>{setSeach(e.target.value)}}
+                                    >
+                                </input></th>
                                 <th>Дата</th>
                                 <th>Оптала</th>
                                 <th>Статус</th>
@@ -45,7 +51,11 @@ function AdminPAnel() {
                         </thead>
                         <tbody>
 
-                            {applications.map((application, index) => {
+                            {applications.filter((application)=>{
+                                if(!seach) return true;
+                                return application.platform && application.platform.toLowerCase().includes(seach.toLowerCase())
+                            })
+                            .map((application, index) => {
                                 return (
                                     <tr key={application.idapplications}>
                                         <td data-testid="admin-row">{application.platform}</td>
@@ -53,21 +63,21 @@ function AdminPAnel() {
                                         <td data-testid="admin-row">{application.payment}</td>
                                         <td data-testid="admin-row">{
                                             <Form.Control as="select" data-testid="admin-status" defaultValue={"application.status"} onChange={(e) => {
-                                                    console.log(application.idapplications);
-                                                    fetch(`http://localhost:3000/applications/${application.idapplications}`, {
-                                                        method: "PUT",
-                                                        headers: {
-                                                            "Content-Type": "application/json",
-                                                        },
-                                                        body: JSON.stringify({ status: e.target.value }),
-                                                    });
+                                                console.log(application.idapplications);
+                                                fetch(`http://localhost:3000/applications/${application.idapplications}`, {
+                                                    method: "PUT",
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                    },
+                                                    body: JSON.stringify({ status: e.target.value }),
+                                                });
 
-                                                    // console.log(application);
-                                                    // console.log("Добавлена");
-                                                    // navigate("/A")
+                                                // console.log(application);
+                                                // console.log("Добавлена");
+                                                // navigate("/A")
 
-                                                }
-                                                } >
+                                            }
+                                            } >
                                                 <option value={""}>{application.status}</option>
                                                 <option value={"Мероприятие назначено"}>Мероприятие назначено</option>
                                                 <option value={"Завершено"}>Завершено</option>
