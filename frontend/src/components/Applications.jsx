@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function Applications() {
 
     const [applications, setApplications] = useState([])
-
+    const [rewiest, setRewiest] = useState({})
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
@@ -22,6 +22,7 @@ function Applications() {
     }, [])
 
     console.log(applications);
+    // console.log(data.application);
 
 
 
@@ -33,8 +34,7 @@ function Applications() {
 
                     <h1>Ваши заявки</h1>
 
-                    <Table striped bordered hover data-testid="req
-list">
+                    <Table striped bordered hover data-testid="reqt">
                         <thead>
                             <tr>
                                 <th>Конференция</th>
@@ -46,14 +46,34 @@ list">
                         </thead>
                         <tbody>
 
-                            {applications.map((application, index) => {
-                                return application.idusers === JSON.parse(localStorage.getItem("idusers")) ? (
+                            {applications.map((application) => {
+                                return application.idusers == JSON.parse(localStorage.getItem("idusers")) ? (
                                     <tr key={application.idapplications}>
                                         <td>{application.platform}</td>
                                         <td>{application.date}</td>
                                         <td>{application.payment}</td>
                                         <td>{application.status}</td>
-                                        <td>{application.rewiest || <textarea data-testid="req-review"></textarea> }</td>
+                                        <td>{application.rewiest ? (application.rewiest) : <textarea data-testid="req-review"
+                                            disabled={application.status !== "Завершено"}
+                                            placeholder={application.status == "Завершено" ? ("Оставьте свой отзыв") : ("Оставить отзыв можно только после завершения мероприятия")}
+                                            onBlur={(e) => {
+                                                if (!e.target.value.trim()) return;
+
+                                                fetch("http://localhost:3000/rewiest", {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                    },
+                                                    body: JSON.stringify({
+                                                        idapplications: application.idapplications,
+                                                        // idusers: localStorage.getItem("idusers"),
+                                                        rewiest: e.target.value
+                                                    }),
+                                                });
+
+                                            }}
+                                        >
+                                        </textarea>}</td>
                                     </tr>
                                 ) : null
                             })

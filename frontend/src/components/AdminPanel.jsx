@@ -52,8 +52,7 @@ function AdminPAnel() {
                                         <td data-testid="admin-row">{application.date}</td>
                                         <td data-testid="admin-row">{application.payment}</td>
                                         <td data-testid="admin-row">{
-                                            <Form.Control as="select" data
-                                                testid="admin-status" defaultValue={"application.status"} onChange={(e) => {
+                                            <Form.Control as="select" data-testid="admin-status" defaultValue={"application.status"} onChange={(e) => {
                                                     console.log(application.idapplications);
                                                     fetch(`http://localhost:3000/applications/${application.idapplications}`, {
                                                         method: "PUT",

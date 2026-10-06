@@ -46,7 +46,7 @@ function ApplicationsForm() {
 
             console.log(result);
             // console.log("Добавлена");
-            // navigate("/A")
+            navigate("/Applications")
 
         } catch (error) {
             console.error(error);
@@ -61,20 +61,15 @@ function ApplicationsForm() {
             <h1>Отправить заявку</h1>
 
             <Form onSubmit={handleSubmit}>
-                <Form.Group>
+
+                    <Form.Group>
                     <Form.Label>Помещение</Form.Label>
-                    <Form.Control as="select" defaultValue={""} required onChange={(e) => setPlatform(e.target.value)} data
-                        testid="req-room">
-                        <option value={""}>выберите помещение</option>
-                        <option value={"Аудитория"}>Аудитория</option>
-                        <option value={"Коворкинг"}>Коворкинг</option>
-                        <option value={"Кинозал"}>Кинозал</option>
-                    </Form.Control>
+                    <Form.Control type="text"  data-testid="reg-password" placeholder="Помещение" required onChange={(e) => setPlatform(e.target.value)}  />
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Дата</Form.Label>
-                    <Form.Control type="date"  data-testid="req-date" placeholder="Дата" required onChange={(e) => setDate(e.target.value)} data-testid="reg-password" />
+                    <Form.Control type="date"  data-testid="reg-password" placeholder="Дата" required onChange={(e) => setDate(e.target.value)}  />
                 </Form.Group>
 
                 <Form.Group>
@@ -87,13 +82,11 @@ function ApplicationsForm() {
                 </Form.Group>
 
 
-                <Button variant="primary" data-testid="req-submit"  type="submit" data-testid="reg-submit"> Отправить</Button>
+                <Button variant="primary" data-testid="req-submit"  type="submit" > Отправить</Button>
 
                 <a href='/Applications'>Назад</a>
 
             </Form>
-
-
         </Container>
     )
 

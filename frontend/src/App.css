@@ -20,6 +20,7 @@ body {
   background-color: #f8f9fa;
   font-size: 16px !important;
   font-family: PT_Sans;
+  /* max-width: fit-content; */
 }
 
 h1 {

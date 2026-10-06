@@ -21,6 +21,8 @@ app.get('/users', (req, res) => {
             console.error(err);
             return
         }
+
+        console.log(result);
         res.json({
             message: "Найден"
         })
@@ -37,7 +39,8 @@ app.post('/login', (req, res) => {
             console.error(err);
             return
         }
-        res.json({
+
+         return res.json({
             message: "Добавлена"
         })
 
@@ -85,11 +88,13 @@ app.post('/applications', (req, res) => {
 })
 
 app.get('/applications', (req, res) => {
-    const sql = `SELECT * FROM applications`
+    const sql = `SELECT a.*, r.rewiest FROM applications a 
+    LEFT JOIN rewiest r ON a.idapplications = r.idapplications `
 
     db.query(sql, (err, result) => {
         if (err) {
             console.error(err);
+            message: "Ошибка"
             return
         }
 
@@ -102,6 +107,7 @@ app.get('/applications', (req, res) => {
 
     })
 })
+
 
 app.put('/applications/:id', (req, res) => {
     const { id } = req.params
@@ -120,6 +126,23 @@ app.put('/applications/:id', (req, res) => {
         })
     })
 
+})
+
+
+app.post('/rewiest', (req, res) => {
+    const { idapplications, rewiest} = req.body
+    const sql = `INSERT INTO rewiest (idapplications, rewiest) VALUES (?,?)`
+
+    db.query(sql, [idapplications, rewiest], (err, result) => {
+        if (err) {
+            console.error(err);
+            return
+        }
+        return res.json({
+            message: "Добавлен"
+        })
+
+    })
 })
 
 

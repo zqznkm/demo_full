@@ -46,8 +46,8 @@ function Register() {
             });
 
             const result = await response.json()
-
-            console.log("Добавлена");
+            console.log(result);
+            // console.log("Добавлена");
             navigate("/Login")
 
         } catch (error) {
