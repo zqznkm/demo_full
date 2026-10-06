@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Table } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import imgCard from "../media-obr/card.png"
 
-function AdminPAnel() {
+function AdminPanel() {
 
     const [applications, setApplications] = useState([])
     const [seach, setSeach] = useState("")
@@ -31,37 +32,33 @@ function AdminPAnel() {
         <Container fluid="md">
             <Row>
                 <Col md={12}>
-
                     <h1>Все заявки</h1>
+                    <input
+                        type="text"
+                        placeholder='фильтрация'
+                        value={seach}
+                        onChange={(e) => setSeach(e.target.value)}
+                    ></input>
+                </Col>
+            </Row>
 
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Помещение <input type="text"
-                                    placeholder="поиск...." 
-                                    value={seach}
-                                    onChange={(e)=>{setSeach(e.target.value)}}
-                                    >
-                                </input></th>
-                                <th>Дата</th>
-                                <th>Оптала</th>
-                                <th>Статус</th>
-                                <th>Отзыв</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+            <Row>
+                <Col md={12}>
 
-                            {applications.filter((application)=>{
-                                if(!seach) return true;
-                                return application.platform && application.platform.toLowerCase().includes(seach.toLowerCase())
-                            })
-                            .map((application, index) => {
-                                return (
-                                    <tr key={application.idapplications}>
-                                        <td data-testid="admin-row">{application.platform}</td>
-                                        <td data-testid="admin-row">{application.date}</td>
-                                        <td data-testid="admin-row">{application.payment}</td>
-                                        <td data-testid="admin-row">{
+                    {applications.filter((application) => {
+                        if (!seach) return true;
+                        return application.platform && application.platform.toLowerCase().includes(seach.toLowerCase())
+                    })
+                        .map((application, index) => {
+                            return (
+                                <Card style={{ margin: "10px" }} key={application.idapplications}>
+                                    <Card.Img variant="top" src={image} id="imgCard" />
+                                    <Card.Title>{application.platform}
+                                    </Card.Title>
+                                    <Card.Text as="div">
+                                        <div data-testid="admin-row"><strong>Дата:</strong>{application.date}</div>
+                                        <div data-testid="admin-row"><strong>Оплата:</strong>{application.payment}</div>
+                                        <div data-testid="admin-row"><strong>Статус:</strong>{
                                             <Form.Control as="select" data-testid="admin-status" defaultValue={"application.status"} onChange={(e) => {
                                                 console.log(application.idapplications);
                                                 fetch(`http://localhost:3000/applications/${application.idapplications}`, {
@@ -84,28 +81,27 @@ function AdminPAnel() {
                                             </Form.Control>
 
 
-                                        }</td>
-                                        <td data-testid="admin-row">{application.rewiest || "НЕТ ОТЗЫВА"} </td>
-                                    </tr>
-                                )
-                            }
-                            )}
-                        </tbody>
-                    </Table>
+                                        }</div>
+                                        <div data-testid="admin-row"><strong>Отзыв:</strong>{application.rewiest || "НЕТ ОТЗЫВА"} </div>
+                                    </Card.Text>
+                                </Card>
 
 
-                    {/* <Button variant="primary" href='/ApplicationsForm'> Отправить заявку</Button> */}
-
-                    <a href='/Login'>Назад</a>
-                </Col>
-                <Col>
+                            )
+                        }
+                        )}
                 </Col>
             </Row>
 
+            <a href='/Login'>Назад</a>
 
-        </Container>
+
+
+        </Container >
     )
 
 }
 
-export default AdminPAnel
+export default AdminPanel
+
+

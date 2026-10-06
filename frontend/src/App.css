@@ -39,6 +39,10 @@ button {
   background-color: #007bff !important;
   margin: 10px !important;
 }
+button:hover {
+  background-color: #0d47a1  !important;
+  margin: 10px !important;
+}
 
 header{
   background-color: #0d47a1;
@@ -49,4 +53,18 @@ header{
 
 #fontsHeader{
   font-size: 24px !important;
+}
+
+#logo{
+  width: 5%;
+  height: 5%;
+}
+
+#imgCard {
+  width: 20%;
+  height: 10%;
+}
+
+#card{
+  margin: 1%;
 }
