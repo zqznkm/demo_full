@@ -40,7 +40,7 @@ app.post('/login', (req, res) => {
             return
         }
 
-         return res.json({
+        return res.json({
             message: "Добавлена"
         })
 
@@ -114,7 +114,7 @@ app.put('/applications/:id', (req, res) => {
     const { status } = req.body
     const sql = ` UPDATE applications SET status = ? WHERE idapplications = ?`
 
-    db.query(sql, [status, id], (err, result)=>{
+    db.query(sql, [status, id], (err, result) => {
         if (err) {
             console.error(err);
             return
@@ -122,7 +122,7 @@ app.put('/applications/:id', (req, res) => {
 
         console.log(result);
         res.json({
-            message:"изменен"
+            message: "изменен"
         })
     })
 
@@ -130,7 +130,7 @@ app.put('/applications/:id', (req, res) => {
 
 
 app.post('/rewiest', (req, res) => {
-    const { idapplications, rewiest} = req.body
+    const { idapplications, rewiest } = req.body
     const sql = `INSERT INTO rewiest (idapplications, rewiest) VALUES (?,?)`
 
     db.query(sql, [idapplications, rewiest], (err, result) => {
@@ -143,6 +143,30 @@ app.post('/rewiest', (req, res) => {
         })
 
     })
+})
+
+app.delete('/applications/:id', (req, res) => {
+    const { id } = req.params
+
+    const sql = `DELETE FROM applications WHERE idapplications = ?`
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error(err);
+            return
+        }
+
+        if (result.length === 0) {
+            message: "такой заявки нет"
+            console.log(err);
+            return
+        }
+        return res.json({
+            message: "удалена"
+        })
+
+    })
+
 })
 
 

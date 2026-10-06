@@ -75,7 +75,11 @@ function Applications() {
 
                                             }}
                                         >
-                                        </textarea>} <Button>Удалить завку</Button></td>
+                                        </textarea>} <Button onClick={() => {
+                                            fetch(`http://localhost:3000/applications/${application.idapplications}`, 
+                                            { method: "DELETE" })
+
+                                        }}>Удалить завку</Button></td>
                                     </tr>
                                 ) : null
                             })
