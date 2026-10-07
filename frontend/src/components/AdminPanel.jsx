@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import imgCard from "../media-obr/card.png"
+import image from "../media-obr/image.png"
 
 function AdminPanel() {
 
